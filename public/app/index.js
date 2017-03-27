@@ -3,8 +3,8 @@ import { render } from 'react-dom'
 import { Route, Router, IndexRoute, browserHistory, hashHistory } from 'react-router'
 
 //components
-import Main from './components/Main'
-import NotFound from './components/NotFound'
+import TodoApp from 'TodoApp'
+import NotFound from 'NotFound'
 
 //load foundation
 import 'style-loader!css-loader!foundation-sites/dist/css/foundation.min.css'
@@ -16,7 +16,7 @@ const app = document.getElementById('app')
 
 render(
 	<Router history={browserHistory}>
-		<Route path="/" component={Main}>
+		<Route path="/" component={TodoApp}>
 
 		</Route>
 		<Route path="*" component={NotFound} />

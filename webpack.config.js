@@ -20,6 +20,10 @@ module.exports = {
     filename: 'bundle.js'
   },
   resolve: {
+    modules: [
+      'node_modules',
+      './app/components'
+    ],
     extensions: ['.js', '.jsx']
   },
   module: {

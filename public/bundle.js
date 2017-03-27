@@ -12388,11 +12388,11 @@ var _reactDom = __webpack_require__(148);
 
 var _reactRouter = __webpack_require__(106);
 
-var _Main = __webpack_require__(116);
+var _TodoApp = __webpack_require__(117);
 
-var _Main2 = _interopRequireDefault(_Main);
+var _TodoApp2 = _interopRequireDefault(_TodoApp);
 
-var _NotFound = __webpack_require__(117);
+var _NotFound = __webpack_require__(116);
 
 var _NotFound2 = _interopRequireDefault(_NotFound);
 
@@ -12414,7 +12414,7 @@ var app = document.getElementById('app');
 (0, _reactDom.render)(_react2.default.createElement(
 	_reactRouter.Router,
 	{ history: _reactRouter.browserHistory },
-	_react2.default.createElement(_reactRouter.Route, { path: '/', component: _Main2.default }),
+	_react2.default.createElement(_reactRouter.Route, { path: '/', component: _TodoApp2.default }),
 	_react2.default.createElement(_reactRouter.Route, { path: '*', component: _NotFound2.default })
 ), app);
 
@@ -12432,41 +12432,6 @@ __webpack_require__(111)(__webpack_require__(147))
 
 /***/ }),
 /* 116 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(7);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var Main = function Main(props) {
-  return _react2.default.createElement(
-    "div",
-    null,
-    _react2.default.createElement(
-      "div",
-      { className: "row" },
-      _react2.default.createElement(
-        "div",
-        { className: "column small-centered medium-6 large-4" },
-        props.children
-      )
-    )
-  );
-};
-
-exports.default = Main;
-
-/***/ }),
-/* 117 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12502,6 +12467,41 @@ var NotFound = function NotFound() {
 };
 
 exports.default = NotFound;
+
+/***/ }),
+/* 117 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(7);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var TodoApp = function TodoApp(props) {
+  return _react2.default.createElement(
+    "div",
+    null,
+    _react2.default.createElement(
+      "div",
+      { className: "row" },
+      _react2.default.createElement(
+        "div",
+        { className: "column small-centered medium-6 large-4" },
+        "TODO APP"
+      )
+    )
+  );
+};
+
+exports.default = TodoApp;
 
 /***/ }),
 /* 118 */

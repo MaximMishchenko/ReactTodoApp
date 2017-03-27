@@ -1,15 +1,15 @@
 import React from 'react'
 
-let Main = (props) => {
+let TodoApp = (props) => {
   return(
     <div>
       <div className="row">
         <div className="column small-centered medium-6 large-4">
-          {props.children}
+          TODO APP
         </div>
       </div>
     </div>
   )
 }
 
-export default Main
+export default TodoApp

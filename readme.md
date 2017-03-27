@@ -1,4 +1,4 @@
-React Timer application
+React Todo application
 =====================
 
 [Use it on heroku](http://safe-beyond-99488.herokuapp.com/)
