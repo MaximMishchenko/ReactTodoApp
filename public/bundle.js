@@ -12580,18 +12580,22 @@ var Todo = function (_React$Component) {
   }
 
   _createClass(Todo, [{
-    key: 'render',
+    key: "render",
     value: function render() {
+      var _this2 = this;
+
       var _props = this.props,
           id = _props.id,
-          text = _props.text;
+          text = _props.text,
+          completed = _props.completed;
 
 
       return _react2.default.createElement(
-        'div',
-        null,
-        id,
-        '. ',
+        "div",
+        { onClick: function onClick() {
+            _this2.props.onToggle(id);
+          } },
+        _react2.default.createElement("input", { type: "checkbox", checked: completed }),
         text
       );
     }
@@ -12658,10 +12662,12 @@ var TodoApp = function (_React$Component) {
       searchText: '',
       todos: [{
         id: (0, _nodeUuid2.default)(),
-        text: 'Walk the dog'
+        text: 'Walk the dog',
+        completed: false
       }, {
         id: (0, _nodeUuid2.default)(),
-        text: 'Clean the room'
+        text: 'Clean the room',
+        completed: true
       }]
     };
     return _this;
@@ -12673,7 +12679,8 @@ var TodoApp = function (_React$Component) {
       this.setState({
         todos: [].concat(_toConsumableArray(this.state.todos), [{
           id: (0, _nodeUuid2.default)(),
-          text: text
+          text: text,
+          completed: false
         }])
       });
     }
@@ -12683,6 +12690,20 @@ var TodoApp = function (_React$Component) {
       this.setState({
         showCompleted: showCompleted,
         searchText: searchText.toLowerCase()
+      });
+    }
+  }, {
+    key: 'handleToggle',
+    value: function handleToggle(id) {
+      var updatedTodos = this.state.todos.map(function (todo) {
+        if (todo.id === id) {
+          todo.completed = !todo.completed;
+        }
+        return todo;
+      });
+
+      this.setState({
+        todos: updatedTodos
       });
     }
   }, {
@@ -12701,7 +12722,7 @@ var TodoApp = function (_React$Component) {
             'div',
             { className: 'column small-centered medium-6 large-4' },
             _react2.default.createElement(_TodoSearch2.default, { onSearch: this.handleSearch.bind(this) }),
-            _react2.default.createElement(_TodoList2.default, { todos: todos }),
+            _react2.default.createElement(_TodoList2.default, { todos: todos, onToggle: this.handleToggle.bind(this) }),
             _react2.default.createElement(_AddTodo2.default, { onAddTodo: this.handleAddTodo.bind(this) })
           )
         )
@@ -12757,11 +12778,13 @@ var TodoList = function (_React$Component) {
   _createClass(TodoList, [{
     key: 'render',
     value: function render() {
+      var _this2 = this;
+
       var todos = this.props.todos;
 
       var renderTodos = function renderTodos() {
         return todos.map(function (todo) {
-          return _react2.default.createElement(_Todo2.default, _extends({ key: todo.id }, todo));
+          return _react2.default.createElement(_Todo2.default, _extends({ key: todo.id }, todo, { onToggle: _this2.props.onToggle }));
         });
       };
 
