@@ -23,8 +23,8 @@ class TodoApp extends React.Component {
     }
   }
 
-  handleAddTodo(){
-    alert('new todo')
+  handleAddTodo(todoText){
+    alert('new todo' + todoText)
   }
 
   handleSearch(showCompleted, searchText){
