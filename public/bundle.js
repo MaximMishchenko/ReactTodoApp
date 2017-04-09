@@ -24868,6 +24868,32 @@ exports.default = {
     } catch (e) {}
 
     return _jquery2.default.isArray(todos) ? todos : [];
+  },
+
+  filterTodos: function filterTodos(todos, showCompleted, searchText) {
+    var filteredTodos = todos;
+
+    //Filter by showCompleted
+    filteredTodos = filteredTodos.filter(function (todo) {
+      return !todo.completed || showCompleted;
+    });
+
+    //Filter by searchText
+    filteredTodos = filteredTodos.filter(function (todo) {
+      var text = todo.text.toLowerCase();
+      return searchText.length === 0 || text.indexOf(searchText) > -1;
+    });
+
+    //Sort todos with non-completed first
+    filteredTodos.sort(function (a, b) {
+      if (!a.completed && b.completed) {
+        return -1;
+      } else if (a.completed && !b.completed) {
+        return 1;
+      } else return 0;
+    });
+
+    return filteredTodos;
   }
 };
 
@@ -25151,8 +25177,12 @@ var TodoApp = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var todos = this.state.todos;
+      var _state = this.state,
+          todos = _state.todos,
+          showCompleted = _state.showCompleted,
+          searchText = _state.searchText;
 
+      var filteredTodos = _TodoAPI2.default.filterTodos(todos, showCompleted, searchText);
 
       return _react2.default.createElement(
         'div',
@@ -25164,7 +25194,7 @@ var TodoApp = function (_React$Component) {
             'div',
             { className: 'column small-centered medium-6 large-4' },
             _react2.default.createElement(_TodoSearch2.default, { onSearch: this.handleSearch.bind(this) }),
-            _react2.default.createElement(_TodoList2.default, { todos: todos, onToggle: this.handleToggle.bind(this) }),
+            _react2.default.createElement(_TodoList2.default, { todos: filteredTodos, onToggle: this.handleToggle.bind(this) }),
             _react2.default.createElement(_AddTodo2.default, { onAddTodo: this.handleAddTodo.bind(this) })
           )
         )
