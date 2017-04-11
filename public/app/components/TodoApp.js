@@ -63,11 +63,14 @@ class TodoApp extends React.Component {
 
     return(
       <div>
+        <h1 className="page-title">Todo App</h1>
         <div className="row">
-          <div className="column small-centered medium-6 large-4">
-            <TodoSearch onSearch={this.handleSearch.bind(this)}/>
-            <TodoList todos={filteredTodos} onToggle={this.handleToggle.bind(this)}/>
-            <AddTodo onAddTodo={this.handleAddTodo.bind(this)}/>
+          <div className="column small-centered small=11 medium-6 large-4">
+            <div className="container">
+              <TodoSearch onSearch={this.handleSearch.bind(this)}/>
+              <TodoList todos={filteredTodos} onToggle={this.handleToggle.bind(this)}/>
+              <AddTodo onAddTodo={this.handleAddTodo.bind(this)}/>
+            </div>
           </div>
         </div>
       </div>

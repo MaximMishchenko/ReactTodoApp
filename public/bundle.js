@@ -24954,7 +24954,7 @@ var AddTodo = function (_React$Component) {
 
       return _react2.default.createElement(
         'div',
-        null,
+        { className: 'container__footer' },
         _react2.default.createElement(
           'form',
           { onSubmit: this.handleSubmit.bind(this) },
@@ -25218,14 +25218,23 @@ var TodoApp = function (_React$Component) {
         'div',
         null,
         _react2.default.createElement(
+          'h1',
+          { className: 'page-title' },
+          'Todo App'
+        ),
+        _react2.default.createElement(
           'div',
           { className: 'row' },
           _react2.default.createElement(
             'div',
-            { className: 'column small-centered medium-6 large-4' },
-            _react2.default.createElement(_TodoSearch2.default, { onSearch: this.handleSearch.bind(this) }),
-            _react2.default.createElement(_TodoList2.default, { todos: filteredTodos, onToggle: this.handleToggle.bind(this) }),
-            _react2.default.createElement(_AddTodo2.default, { onAddTodo: this.handleAddTodo.bind(this) })
+            { className: 'column small-centered small=11 medium-6 large-4' },
+            _react2.default.createElement(
+              'div',
+              { className: 'container' },
+              _react2.default.createElement(_TodoSearch2.default, { onSearch: this.handleSearch.bind(this) }),
+              _react2.default.createElement(_TodoList2.default, { todos: filteredTodos, onToggle: this.handleToggle.bind(this) }),
+              _react2.default.createElement(_AddTodo2.default, { onAddTodo: this.handleAddTodo.bind(this) })
+            )
           )
         )
       );
@@ -25350,7 +25359,7 @@ var TodoSearch = function (_React$Component) {
     value: function render() {
       return _react2.default.createElement(
         "div",
-        null,
+        { className: "container__header" },
         _react2.default.createElement(
           "div",
           null,
@@ -26722,7 +26731,7 @@ exports = module.exports = __webpack_require__(120)(undefined);
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, ".page-title {\n  margin: 0;\n  padding: 2rem 0;\n  text-align: center; }\n\n.container {\n  background-color: #fafafa;\n  border: 1px solid #eeeeee;\n  border-radius: 5px;\n  padding: 0;\n  margin-bottom: 2rem; }\n\n.container__header {\n  border: 1px solid #eeeeee;\n  padding: 1rem; }\n  .container__header label {\n    cursor: pointer;\n    font-size: 1rem; }\n  .container__header > :last-child {\n    align-items: center;\n    display: flex; }\n\n.container__footer {\n  padding: 1rem 1rem 0 1rem;\n  border-top: 1px solid #eeeeee; }\n", ""]);
 
 // exports
 
