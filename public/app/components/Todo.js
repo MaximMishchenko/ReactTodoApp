@@ -1,9 +1,22 @@
 import React from 'react'
+import moment from 'moment'
 
 class Todo extends React.Component {
 
   render(){
-    let {id, text, completed} = this.props
+    let {id, text, completed, createdAt, completedAt} = this.props
+
+    let renderDate = () => {
+      let message = 'Created '
+      let timestamp = createdAt
+
+      if(completed){
+        message = 'Completed '
+        timestamp = completedAt
+      }
+
+      return message + moment.unix(timestamp).format('MMM Do YYYY @ h:mm a')
+    }
 
     return(
       <div onClick={() => {
@@ -11,6 +24,7 @@ class Todo extends React.Component {
         }}>
         <input type="checkbox" checked={completed}/>
         {text}
+        <p>{renderDate()}</p>
       </div>
     )
   }
