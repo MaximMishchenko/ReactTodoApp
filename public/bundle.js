@@ -40927,6 +40927,10 @@ var _Todo = __webpack_require__(306);
 
 var _Todo2 = _interopRequireDefault(_Todo);
 
+var _TodoAPI = __webpack_require__(303);
+
+var _TodoAPI2 = _interopRequireDefault(_TodoAPI);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -40947,7 +40951,10 @@ var TodoList = exports.TodoList = function (_React$Component) {
   _createClass(TodoList, [{
     key: 'render',
     value: function render() {
-      var todos = this.props.todos;
+      var _props = this.props,
+          todos = _props.todos,
+          showCompleted = _props.showCompleted,
+          searchText = _props.searchText;
 
       var renderTodos = function renderTodos() {
         if (todos.length === 0) {
@@ -40958,7 +40965,7 @@ var TodoList = exports.TodoList = function (_React$Component) {
           );
         }
 
-        return todos.map(function (todo) {
+        return _TodoAPI2.default.filterTodos(todos, showCompleted, searchText).map(function (todo) {
           return _react2.default.createElement(_Todo2.default, _extends({ key: todo.id }, todo));
         });
       };
@@ -40975,9 +40982,7 @@ var TodoList = exports.TodoList = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = (0, _reactRedux.connect)(function (state) {
-  return {
-    todos: state.todos
-  };
+  return state;
 })(TodoList);
 
 /***/ }),
@@ -40990,12 +40995,21 @@ exports.default = (0, _reactRedux.connect)(function (state) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.TodoSearch = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(8);
 
 var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = __webpack_require__(549);
+
+var _actions = __webpack_require__(302);
+
+var actions = _interopRequireWildcard(_actions);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -41005,7 +41019,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var TodoSearch = function (_React$Component) {
+var TodoSearch = exports.TodoSearch = function (_React$Component) {
   _inherits(TodoSearch, _React$Component);
 
   function TodoSearch() {
@@ -41015,32 +41029,37 @@ var TodoSearch = function (_React$Component) {
   }
 
   _createClass(TodoSearch, [{
-    key: "handleSearch",
-    value: function handleSearch() {
-      var showCompleted = this.refs.showCompleted.checked;
-      var searchText = this.refs.searchText.value;
-
-      this.props.onSearch(showCompleted, searchText);
-    }
-  }, {
-    key: "render",
+    key: 'render',
     value: function render() {
+      var _this2 = this;
+
+      var _props = this.props,
+          dispatch = _props.dispatch,
+          showCompleted = _props.showCompleted,
+          searchText = _props.searchText;
+
+
       return _react2.default.createElement(
-        "div",
-        { className: "container__header" },
+        'div',
+        { className: 'container__header' },
         _react2.default.createElement(
-          "div",
+          'div',
           null,
-          _react2.default.createElement("input", { type: "search", ref: "searchText", placeholder: "Search todos", onChange: this.handleSearch.bind(this) })
+          _react2.default.createElement('input', { type: 'search', ref: 'searchText', placeholder: 'Search todos', value: searchText, onChange: function onChange() {
+              var searchText = _this2.refs.searchText.value;
+              dispatch(actions.setSearchText(searchText));
+            } })
         ),
         _react2.default.createElement(
-          "div",
+          'div',
           null,
           _react2.default.createElement(
-            "label",
+            'label',
             null,
-            _react2.default.createElement("input", { type: "checkbox", ref: "showCompleted", onChange: this.handleSearch.bind(this) }),
-            "Show completes todos"
+            _react2.default.createElement('input', { type: 'checkbox', ref: 'showCompleted', checked: showCompleted, onChange: function onChange() {
+                dispatch(actions.toggleShowCompleted());
+              } }),
+            'Show completes todos'
           )
         )
       );
@@ -41050,7 +41069,12 @@ var TodoSearch = function (_React$Component) {
   return TodoSearch;
 }(_react2.default.Component);
 
-exports.default = TodoSearch;
+exports.default = (0, _reactRedux.connect)(function (state) {
+  return {
+    showCompleted: state.showCompleted,
+    searchText: state.searchText
+  };
+})(TodoSearch);
 
 /***/ }),
 /* 310 */
