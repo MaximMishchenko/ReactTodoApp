@@ -25,7 +25,8 @@ module.exports = {
       './app/components',
       './app/api',
       './app/actions',
-      './app/reducers'
+      './app/reducers',
+      './app/store'
     ],
     extensions: ['.js', '.jsx']
   },
