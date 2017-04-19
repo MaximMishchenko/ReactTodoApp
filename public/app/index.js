@@ -7,8 +7,9 @@ import { Provider } from 'react-redux'
 import TodoApp from 'TodoApp'
 import NotFound from 'NotFound'
 
-import { setSearchText, addTodo, toggleTodo, toggleShowCompleted } from 'actions'
-import * as storeConfigure from 'storeConfig'
+import * as actions from 'actions'
+import { configure } from 'storeConfig'
+import TodoAPI from 'TodoAPI'
 
 //load foundation
 import 'style-loader!css-loader!foundation-sites/dist/css/foundation.min.css'
@@ -16,14 +17,17 @@ import 'style-loader!css-loader!foundation-sites/dist/css/foundation.min.css'
 //custom styles
 import 'style-loader!css-loader!sass-loader!./styles/style.scss'
 
-let store = storeConfigure.configure()
+let store = configure()
 
 store.subscribe(() => {
-	console.log(store.getState())
+	let state = store.getState()
+	console.log(state)
+	TodoAPI.setTodos(state.todos)
 })
 
-store.dispatch(addTodo('Clean'))
-store.dispatch(toggleShowCompleted())
+let initialTodos = TodoAPI.getTodos()
+
+store.dispatch(actions.addTodos(initialTodos))
 
 const app = document.getElementById('app')
 
