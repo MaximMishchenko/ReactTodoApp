@@ -11,6 +11,8 @@ import * as actions from 'actions'
 import { configure } from 'storeConfig'
 import TodoAPI from 'TodoAPI'
 
+import './../playground/firebase'
+
 //load foundation
 import 'style-loader!css-loader!foundation-sites/dist/css/foundation.min.css'
 
