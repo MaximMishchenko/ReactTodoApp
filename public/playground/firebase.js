@@ -14,23 +14,43 @@ var config = {
   let firebaseRef = firebase.database().ref()
 
     firebaseRef.set({
-        appName: 'Todo App',
+        app: {
+            name: 'Todo App',
+            version: '0.1'
+        },
+        isRunning: true,
         user: {
             name: 'Max',
             age: 22
-        } 
+        }
     }).then(() => {
         console.log('success')
     }, (e) => {
         console.log(e)
     })
 
+    let todosRef = firebaseRef.child('todos')
 
-  firebaseRef.child('user').set({
-      name: 'Mike'
-  })
+    todosRef.on('child_added', (snapshot) => {
+        console.log('added',snapshot.key, snapshot.val())
+    })
 
-  firebaseRef.set({
-      appName: 'New name',
-      version: '1.0'
-  })
+    todosRef.on('child_changed', (snapshot) => {
+        console.log('changed', snapshot.key, snapshot.val())
+    })
+
+    todosRef.on('child_removed', (snapshot) => {
+        console.log('deleted', snapshot.key, snapshot.val())
+    })
+
+    todosRef.push({
+        text: 'Walk the dog!!'
+    })
+
+    todosRef.push({
+        text: 'Watch film'
+    })
+
+
+
+    

@@ -42559,7 +42559,11 @@ _firebase2.default.initializeApp(config);
 var firebaseRef = _firebase2.default.database().ref();
 
 firebaseRef.set({
-    appName: 'Todo App',
+    app: {
+        name: 'Todo App',
+        version: '0.1'
+    },
+    isRunning: true,
     user: {
         name: 'Max',
         age: 22
@@ -42570,13 +42574,26 @@ firebaseRef.set({
     console.log(e);
 });
 
-firebaseRef.child('user').set({
-    name: 'Mike'
+var todosRef = firebaseRef.child('todos');
+
+todosRef.on('child_added', function (snapshot) {
+    console.log('added', snapshot.key, snapshot.val());
 });
 
-firebaseRef.set({
-    appName: 'New name',
-    version: '1.0'
+todosRef.on('child_changed', function (snapshot) {
+    console.log('changed', snapshot.key, snapshot.val());
+});
+
+todosRef.on('child_removed', function (snapshot) {
+    console.log('deleted', snapshot.key, snapshot.val());
+});
+
+todosRef.push({
+    text: 'Walk the dog!!'
+});
+
+todosRef.push({
+    text: 'Watch film'
 });
 
 /***/ }),
