@@ -26,7 +26,8 @@ module.exports = {
       './app/api',
       './app/actions',
       './app/reducers',
-      './app/store'
+      './app/store',
+      './app/firebase'
     ],
     extensions: ['.js', '.jsx']
   },

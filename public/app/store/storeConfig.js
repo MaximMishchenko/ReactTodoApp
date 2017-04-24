@@ -1,14 +1,16 @@
-import { createStore, combineReducers, compose } from 'redux'
+import * as redux from 'redux'
+import thunk from 'redux-thunk'
 import { searchTextReducer, showCompletedReducer, todosReducer } from 'reducers'
 
 export let configure = (initialState = {}) => {
-	let reducer = combineReducers({
+	let reducer = redux.combineReducers({
 		searchText: searchTextReducer,
 		showCompleted: showCompletedReducer,
 		todos: todosReducer
 	})
 
-	let store = createStore(reducer, initialState, compose(
+	let store = redux.createStore(reducer, initialState, redux.compose(
+		redux.applyMiddleware(thunk),
 		window.devToolsExtension ? window.devToolsExtension() : f => f
 	))
 
