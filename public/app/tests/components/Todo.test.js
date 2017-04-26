@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import ReactTestUtils from 'react-addons-test-utils'
 import expect from 'expect'
 
+import * as actions from 'actions'
 import { Todo } from 'Todo'
 
 describe('Todo', () => {
@@ -17,15 +18,14 @@ describe('Todo', () => {
       completed: true
     }
 
+    let action = actions.startToggleTodo(todoData.id, !todoData.completed)
+
     let spy = expect.createSpy()
     let todo = ReactTestUtils.renderIntoDocument(<Todo {...todoData} dispatch={spy}/>)
     let $el = $(ReactDOM.findDOMNode(todo))
 
     ReactTestUtils.Simulate.click($el[0])
 
-    expect(spy).toHaveBeenCalledWith({
-      type: 'TOGGLE_TODO',
-      id: todoData.id
-    })
+    expect(spy).toHaveBeenCalledWith(action)
   })
 })
