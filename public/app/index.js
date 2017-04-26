@@ -19,15 +19,7 @@ import 'style-loader!css-loader!sass-loader!./styles/style.scss'
 
 let store = configure()
 
-store.subscribe(() => {
-	let state = store.getState()
-	console.log(state)
-	TodoAPI.setTodos(state.todos)
-})
-
-let initialTodos = TodoAPI.getTodos()
-
-store.dispatch(actions.addTodos(initialTodos))
+store.dispatch(actions.startAddTodos())
 
 const app = document.getElementById('app')
 

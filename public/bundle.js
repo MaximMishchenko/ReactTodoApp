@@ -14694,7 +14694,7 @@ asn1.encoders = __webpack_require__(320);
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
-exports.startToggleTodo = exports.toggleShowCompleted = exports.updateTodo = exports.addTodos = exports.startAddTodo = exports.addTodo = exports.setSearchText = undefined;
+exports.startToggleTodo = exports.toggleShowCompleted = exports.updateTodo = exports.startAddTodos = exports.addTodos = exports.startAddTodo = exports.addTodo = exports.setSearchText = undefined;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -14745,6 +14745,25 @@ var addTodos = exports.addTodos = function addTodos(todos) {
 	return {
 		type: 'ADD_TODOS',
 		todos: todos
+	};
+};
+
+var startAddTodos = exports.startAddTodos = function startAddTodos() {
+	return function (dispatch, getState) {
+		var todosRef = _firebaseConfig.firebaseRef.child('todos');
+
+		return todosRef.once('value').then(function (snapshot) {
+			var todos = snapshot.val() || {};
+			var parsedTodos = [];
+
+			Object.keys(todos).forEach(function (todoId) {
+				parsedTodos.push(_extends({
+					id: todoId
+				}, todos[todoId]));
+			});
+
+			dispatch(addTodos(parsedTodos));
+		});
 	};
 };
 
@@ -22034,23 +22053,6 @@ var _jquery2 = _interopRequireDefault(_jquery);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
-  setTodos: function setTodos(todos) {
-    if (_jquery2.default.isArray(todos)) {
-      localStorage.setItem('todos', JSON.stringify(todos));
-      return todos;
-    }
-  },
-
-  getTodos: function getTodos() {
-    var stringTodos = localStorage.getItem('todos');
-    var todos = [];
-
-    try {
-      todos = JSON.parse(stringTodos);
-    } catch (e) {}
-
-    return _jquery2.default.isArray(todos) ? todos : [];
-  },
 
   filterTodos: function filterTodos(todos, showCompleted, searchText) {
     var filteredTodos = todos;
@@ -40949,15 +40951,7 @@ var store = (0, _storeConfig.configure)();
 //components
 
 
-store.subscribe(function () {
-	var state = store.getState();
-	console.log(state);
-	_TodoAPI2.default.setTodos(state.todos);
-});
-
-var initialTodos = _TodoAPI2.default.getTodos();
-
-store.dispatch(actions.addTodos(initialTodos));
+store.dispatch(actions.startAddTodos());
 
 var app = document.getElementById('app');
 
@@ -42343,8 +42337,9 @@ var TodoList = exports.TodoList = function (_React$Component) {
           showCompleted = _props.showCompleted,
           searchText = _props.searchText;
 
+      var filteredTodos = _TodoAPI2.default.filterTodos(todos, showCompleted, searchText);
       var renderTodos = function renderTodos() {
-        if (todos.length === 0) {
+        if (filteredTodos.length === 0) {
           return _react2.default.createElement(
             'p',
             { className: 'container__message' },
@@ -42352,7 +42347,7 @@ var TodoList = exports.TodoList = function (_React$Component) {
           );
         }
 
-        return _TodoAPI2.default.filterTodos(todos, showCompleted, searchText).map(function (todo) {
+        return filteredTodos.map(function (todo) {
           return _react2.default.createElement(_Todo2.default, _extends({ key: todo.id }, todo));
         });
       };
