@@ -5,7 +5,7 @@ var envFile = require('node-env-file');
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
 try {
-  envFile(path.join(__dirname, 'config/' + process.env.NODE_ENV + '.env'));
+  envFile(path.join(__dirname, 'public/config/' + process.env.NODE_ENV + '.env'));
 } catch (error) {
   
 }
@@ -51,8 +51,7 @@ module.exports = {
       './app/actions',
       './app/reducers',
       './app/store',
-      './app/firebase',
-      './app'
+      './app/firebase'
     ],
     extensions: ['.js', '.jsx']
   },
