@@ -12,6 +12,6 @@ try {
     console.log(error)
 }
 
-  export let firebaseRef = firebase.database().ref()
-
-  export default firebase
+export let githubProvider = new firebase.auth.GithubAuthProvider()
+export let firebaseRef = firebase.database().ref()
+export default firebase

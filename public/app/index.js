@@ -5,6 +5,7 @@ import { Provider } from 'react-redux'
 
 //components
 import TodoApp from 'TodoApp'
+import Login from 'Login'
 import NotFound from 'NotFound'
 
 import * as actions from 'actions'
@@ -26,8 +27,11 @@ const app = document.getElementById('app')
 render(
 	<Provider store={store}>
 		<Router history={browserHistory}>
-			<Route path="/" component={TodoApp}/>
-			<Route path="*" component={NotFound}/>
+			<Route path="/">
+				<IndexRoute component={Login}/>
+				<Route path="todos" component={TodoApp}/>
+				<Route path="*" component={NotFound}/>
+			</Route>
 		</Router>
 	</Provider>,
 	app

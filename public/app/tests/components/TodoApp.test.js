@@ -5,7 +5,7 @@ import ReactTestUtils from 'react-addons-test-utils'
 import expect from 'expect'
 
 import * as storeConfig from 'storeConfig'
-import TodoApp from 'TodoApp'
+import { TodoApp } from 'TodoApp'
 import TodoList from 'TodoList'
 
 
