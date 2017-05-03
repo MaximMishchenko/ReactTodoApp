@@ -1,6 +1,6 @@
 import expect from 'expect'
 import deepFreeze from 'deep-freeze-strict'
-import { searchTextReducer, showCompletedReducer, todosReducer } from 'reducers'
+import { searchTextReducer, showCompletedReducer, todosReducer, authReducer } from 'reducers'
 
 describe('Reducers', () => {
 	describe('searchTextReducer', () => {
@@ -92,4 +92,31 @@ describe('Reducers', () => {
 			expect(res[0]).toEqual(todos[0])
 		})
 	})
+
+	describe('authReducer', () => {
+		it('should store uid on LOGIN', () => {
+			const action = {
+				type: 'LOGIN',
+				uid: 'abc'
+			}
+			const res = authReducer(undefined, deepFreeze(action))
+
+			expect(res).toEqual({
+				uid: action.uid
+			})
+		})
+
+		it('should wipe auth on LOGOUT', () => {
+			const authData = {
+				uid: 'abc'
+			}
+			const action = {
+				type: 'LOGOUT'
+			}
+			const res = authReducer(deepFreeze(authData), deepFreeze(action))
+
+			expect(res).toEqual({})
+		})
+	})
 })
+
