@@ -13,14 +13,13 @@ let store = configure()
 firebase.auth().onAuthStateChanged((user) => {
 	if(user) {
 		store.dispatch(actions.login(user.uid))
+		store.dispatch(actions.startAddTodos())
 		browserHistory.push('/todos')
 	} else {
 		store.dispatch(actions.logout())
 		browserHistory.push('/')
 	}
 })
-
-store.dispatch(actions.startAddTodos())
 
 //load foundation
 import 'style-loader!css-loader!foundation-sites/dist/css/foundation.min.css'
